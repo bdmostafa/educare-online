@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Button, Badge } from 'react-bootstrap';
 import '../assets/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGraduationCap, faStar, faStarHalf } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react';
 
 const Course = (props) => {
     // console.log(props.course);
@@ -29,7 +28,6 @@ const Course = (props) => {
     const runOnclick = () => {
         if (enrollText === 'Enrolled') {
             alert('You have already enrolled this course.');
-            
         } else {
             props.enroll(props.course);
             updatedText('Enrolled');
@@ -37,7 +35,7 @@ const Course = (props) => {
     }
 
     return (
-        <div>
+        <>
             <Card>
                 <Card.Img variant="top" src={img} className="w-100" />
                 <Card.Body className="text-left">
@@ -69,7 +67,7 @@ const Course = (props) => {
                     <small className="text-muted">Course updated {last_update} days ago</small>
                 </Card.Footer>
             </Card>
-        </div>
+        </>
     );
 };
 
