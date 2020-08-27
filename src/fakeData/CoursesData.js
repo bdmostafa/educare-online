@@ -31,7 +31,7 @@ const courses = [
         "instructor": "Engr. Abdul Korim",
         "img": "https://i.imgur.com/9bThWLB.jpg",
         "price": 9.95,
-        "category": ["Architecture", " Interior Design", " Design"],
+        "category": ["Architecture", " Interior Design"],
         "star": 3.9,
         "starCount": 57892,
         "bestSeller": true,
