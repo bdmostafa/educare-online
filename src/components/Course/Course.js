@@ -1,8 +1,9 @@
 import React from 'react';
-import {Card, Button } from 'react-bootstrap';
+import { Card, Button, Badge } from 'react-bootstrap';
 import '../assets/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGraduationCap } from '@fortawesome/free-solid-svg-icons'
+import { faGraduationCap, faStar, faStarHalf } from '@fortawesome/free-solid-svg-icons'
+import { useState } from 'react';
 
 const Course = (props) => {
     // console.log(props.course);
@@ -16,22 +17,53 @@ const Course = (props) => {
         instructor,
         price,
         star,
+        starCount,
         last_update
     } = props.course;
+
+    //Update 'Enroll Now' button when clicked
+    const [enrollText, setEnrollText] = useState('Enroll Now')
+    const updatedText = (text) => setEnrollText(text);
+
+    // Validation on click 'Enroll Now' whether a course is enrolled or not
+    const runOnclick = () => {
+        if (enrollText === 'Enrolled') {
+            alert('You have already enrolled this course.');
+            
+        } else {
+            props.enroll(props.course);
+            updatedText('Enrolled');
+        }
+    }
 
     return (
         <div>
             <Card>
                 <Card.Img variant="top" src={img} className="w-100" />
-                <Card.Body>
-                    <Card.Title> {name} </Card.Title>
-                    <Card.Text>  Category: {category} </Card.Text>
-                    <Card.Text> <small> Instructor:  {instructor} </small> </Card.Text>
-                    <Card.Text> Start: {star} </Card.Text>
-                    <Card.Text> Enrolled ({enrolled}) </Card.Text>
-                    <Card.Text> Price: {price} </Card.Text>
-                    <Card.Text> {bestSeller} </Card.Text>
-                    <Button variant="outline-primary" onClick={() => props.enroll(props.course)}> <FontAwesomeIcon icon={faGraduationCap} /> Enroll Now</Button>
+                <Card.Body className="text-left">
+                    <Card.Title> <h2> {name} </h2> </Card.Title>
+                    <Card.Text> Category: <strong> {category.join(', ')} </strong> </Card.Text>
+                    <Card.Text> Instructor: <i> {instructor} </i></Card.Text>
+                    <Card.Text className="text-dark font-weight-bold">  {star}
+                        <FontAwesomeIcon className="text-warning" icon={faStar} />
+                        <FontAwesomeIcon className="text-warning" icon={faStar} />
+                        <FontAwesomeIcon className="text-warning" icon={faStar} />
+                        <FontAwesomeIcon className="text-warning" icon={faStarHalf} />
+                        <FontAwesomeIcon className="text-warning" icon={faStarHalf} />
+                        <span className="font-weight-normal">({starCount})</span>
+                    </Card.Text>
+                    <Card.Text> {enrolled} students enrolled </Card.Text>
+                    <Card.Text>
+                        Price: ${price}
+                        <del className="text-secondary"> ${(price * 1.5).toFixed(2)}</del>
+                    </Card.Text>
+                    <Card.Text> {bestSeller ? <Badge variant="success">Best Seller</Badge> : ''}  </Card.Text>
+                    <Button
+                        variant="outline-primary"
+                        onClick={() => runOnclick()}>
+                        <FontAwesomeIcon icon={faGraduationCap} />
+                        {enrollText}
+                    </Button>
                 </Card.Body>
                 <Card.Footer>
                     <small className="text-muted">Course updated {last_update} days ago</small>

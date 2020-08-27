@@ -23,7 +23,7 @@ const Enroll = (props) => {
                 </div>
                 <div className='col-md-6'>
                     <Dropdown>
-                        <Dropdown.Toggle variant="info btn-lg" id="dropdown-basic">
+                        <Dropdown.Toggle variant="success btn-lg" id="dropdown-basic">
                             <FontAwesomeIcon className='text-light' icon={faShoppingCart} /> <span className="badge badge-light">{props.enrolled.length}</span>
                         </Dropdown.Toggle>
 
